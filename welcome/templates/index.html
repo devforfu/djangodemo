@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>:: Admin Dashboard ::</title>
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+	  	<script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	  	<script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+	  	<![endif]-->
+
+	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	  	<meta name="SKYPE_TOOLBAR" content ="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
+	  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	  	<link rel="stylesheet" href="css/custom.css">
+	  	<link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
+	  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	  	<script src="http://d3js.org/d3.v3.min.js"></script> 
+	  </head>
+	  <body>
+	  	<div class="container">
+	  		<header>
+	  			<div class="col-md-7">
+	  				<div class="logo">
+	  					<h2>ADMIN DASHBOARD</h2>
+	  				</div>
+	  			</div>
+	  			<div class="col-md-5">
+	  				<div class="form-group bottom5">
+	  					<h4>Select Date</h4>
+	  				</div>
+	  				<form class="form-horizontal search" role="form">
+	  					<div class="form-group">
+	  						<div class="col-md-6">
+	  							<div class="input-group date form_date col-md-5" id="date1" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+	  								<input class="form-control" size="16" type="text" value="01 May 2015" readonly>
+	  								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	  							</div>
+	  							<input type="hidden" id="dtp_input2" value="" />
+	  						</div>
+	  						<div class="col-md-6">
+	  							<div class="input-group date form_date col-md-5" id="date2" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+	  								<input class="form-control" size="16" type="text" value="08 August 2015" readonly>
+	  								<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+	  							</div>
+	  							<input type="hidden" id="dtp_input2" value="" />
+	  						</div>
+	  					</div>
+	  				</form>
+	  			</div>
+	  		</header>
+	  		<div class="wrapper">
+	  			<div class="col-md-12">
+	  				<h1>Dashboard</h1>
+	  			</div>
+	  			<div class="col-md-7">
+	  				<table width="100%" border="1" cellspacing="0" cellpadding="0" class="table-list" bordercolor="#ddd">
+	  					<tr>
+	  						<td>How many open ticket exist.</td>
+	  						<td id="openTickets">45</td>
+	  					</tr>
+	  					<tr>
+	  						<td>What is the average time until the expert reply.</td>
+	  						<td><span id="replyTime"></span>h</td>
+	  					</tr>
+	  					<tr>
+	  						<td>what is the average time until the a ticket is closed.</td>
+	  						<td><span id="closeTime"></span>h</td>
+	  						<!-- <td>1day 23h 11min</td> -->
+	  					</tr>
+	  				</table>
+	  			</div>
+	  			<div style="width:100%; float:left">
+	  				<div class="col-md-6">
+	  					<div class="chart" >
+	  						<div id="area1"></div>
+	  					</div>
+	  				</div>
+	  				<div class="col-md-6">
+	  					<div class="chart">
+	  						<div id="metrics"></div>
+	  					</div>
+	  				</div>
+	  			</div>
+	  		</div>
+	  	</div>
+	  	<footer>
+	  		<div class="copright">copyright @ 2015 admin dashboard</div>
+	  	</footer>
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	  	<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	  	<script src="js/bootstrap.min.js"></script>
+	  	<script src="js/myfunctions.js"></script> <!--bootstrap component functions--> 
+	  	<script src="js/dataload.js"></script>
+
+	  	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
+	  	<script src="js/ie10-viewport-bug-workaround.js"></script>
+	  </body>
+	  </html>

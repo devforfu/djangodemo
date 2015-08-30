@@ -1,0 +1,184 @@
+@import url('bootstrap.min.css');
+@import url('../fonts/font-awesome/css/font-awesome.css');
+@import url('spacing.css');
+@import url('bootstrap-datetimepicker.min.css');
+body {
+	width:100%;
+	height:auto;
+	background:#f5f5f5;
+}
+ol, ul, li {
+	list-style:none;
+}
+a, input, select, .container a {
+	text-decoration:none;
+	outline:none;
+}
+img {
+	border:0 none;
+}
+a, input, select, textarea {
+	font-family: 'Open Sans', sans-serif;
+}
+* {
+	margin:0;
+	padding:0;
+}
+.clear {
+	clear:both;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight:normal; text-align:left;
+	font-family: 'Lato', sans-serif;
+}
+p {
+	font-family: 'Open Sans', sans-serif;
+	line-height:normal;
+	font-size:14px;
+}
+bquote, q {
+	quotes: none;
+}
+bquote:before, bquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+:focus {
+	outline: 0;
+}
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+table tr td {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 13px;
+}
+header, footer, .wrapper {
+	width:100%;
+	float:left;
+}
+
+.wrapper{min-height:700px;}
+
+.logo {
+	float:left;
+	width:100%;
+	margin:20px 0;
+	font-size:40px;
+	color:#333;
+	text-align:left;
+}
+.logo h2 {
+	margin:0;
+}
+.oFormField {
+	
+	font-family: "Lato", sans-serif;
+	font-size: 16px;
+	padding: 8px 25px 8px 8px !important;
+	width: 100%;
+	border:1px solid #ccc;
+}
+.search {
+	float:left;
+	width:100%;
+}
+.search h4 {
+	margin-top:20px 0 0 0;
+}
+.bottom5 h4 {
+	margin-top:20px; text-align:left;
+}
+.table-list tr td {
+	padding:7px;
+	font-size:14px; text-align:left;
+	font-family: 'Open Sans', sans-serif;
+}
+
+ 
+path { 
+  stroke: steelblue;
+  stroke-width: 2;
+  fill: none;
+}
+ 
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+ 	.axis {
+	  font: 14px sans-serif; position:absolute; float:left;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+.chart {
+	float:left; 
+	width:100%; 
+	position:relative; 
+}
+
+#area1, #metrics {
+	float:left;
+}
+
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke-width: 1.5px;
+
+}
+
+body { 
+	background: #FFFFFF; 
+	background-repeat:repeat-x;
+	text-align: center;
+	font: 10px sans-serif;
+}
+
+.dot {
+
+  stroke-width: 1.5px;
+}
+
+.dot-selected {
+  fill: #B0C4DE;
+  stroke: #B0C4DE;
+  stroke-width: 1.5px;
+}
+
+.metrics-container {
+	width: 615px;
+	height: auto;
+	padding: 10px 10px 10px 10px;
+
+	
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+}.chart > div {
+    font-size: 14px !important;
+}
+.input-group .form-control{width:100%; margin-bottom:0;}
+.copright{width:100%; float:left; text-align:center; padding:10px; font-size:13px; background:#444; color:#fff; font-family: 'Open Sans', sans-serif; position:fixed; bottom:0;}
