@@ -1,3 +1,35 @@
+// Custom functions to support CSRF tokens (django)
+function getCookie(name) {
+    var cookieValue = null;
+
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = $.trim(cookies[i]);
+
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(
+                    cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        var safe = /^(GET|HEAD|OPTIONS|TRACE)$/.test(settings.type);
+        var token = getCookie('csrftoken')
+
+        if (!safe && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", token);
+        }
+    }
+});
+
+
 //Generating random data.
 var localData  = {};
 
@@ -74,29 +106,49 @@ localData.openTickets = Math.round(Math.random() * 100);
 localData.avgReplyTime = (Math.random() * 5).toFixed(2);;
 localData.avgTicketCloseTime = (Math.random() * 20).toFixed(2);;
 
+//var loadData = function loadData(dataName, reference, callback) {
+//	if(dataName==='dataForBarChart'){
+//		var arr = [];
+//		for(var i = 0; i < localData.dataForBarChart.length; i++){
+//			if(localData.dataForBarChart[i].date>=sDate && localData.dataForBarChart[i].date<=endDate){
+//				arr.push(localData.dataForBarChart[i]);
+//			}
+//		}
+//		callback(reference, arr);
+//		return;
+//	}
+//	if(dataName==='users'){
+//		var arr = [];
+//		for(var i = 0; i < localData.users.length; i++){
+//			if(localData.users[i].date>=sDate && localData.users[i].date<=endDate){
+//				arr.push(localData.users[i]);
+//			}
+//		}
+//		callback(reference, arr);
+//		return;
+//	}
+//	callback(reference, localData[dataName]);
+//}
+
 var loadData = function loadData(dataName, reference, callback) {
-	if(dataName==='dataForBarChart'){
-		var arr = [];
-		for(var i = 0; i < localData.dataForBarChart.length; i++){
-			if(localData.dataForBarChart[i].date>=sDate && localData.dataForBarChart[i].date<=endDate){
-				arr.push(localData.dataForBarChart[i]);
-			}
-		}
-		callback(reference, arr);
-		return;
-	}
-	if(dataName==='users'){
-		var arr = [];
-		for(var i = 0; i < localData.users.length; i++){
-			if(localData.users[i].date>=sDate && localData.users[i].date<=endDate){
-				arr.push(localData.users[i]);
-			}
-		}
-		callback(reference, arr);
-		return;
-	}
-	callback(reference, localData[dataName]);
-}
+    $.ajax({
+        url: "/welcome/chart",
+        type: "post",
+        data: {
+            'start_date': sDate,
+            'end_date': endDate
+        },
+        success: function(data) {
+            // callback(reference, data);
+            alert('Response: ' + data);
+        },
+        error: function() {
+            alert('Error occurred!');
+        }
+    });
+
+    event.preventDefault();
+};
 
 // It should work like this:
 

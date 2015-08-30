@@ -12,7 +12,7 @@
 	  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	  	<meta name="SKYPE_TOOLBAR" content ="SKYPE_TOOLBAR_PARSER_COMPATIBLE"/>
 	  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	  	<link rel="stylesheet" href="css/custom.css">
+	  	<link rel="stylesheet" href="../static/css/custom.css">
 	  	<link href='http://fonts.googleapis.com/css?family=Lato:400,300' rel='stylesheet' type='text/css'>
 	  	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	  	<script src="http://d3js.org/d3.v3.min.js"></script> 
@@ -46,6 +46,7 @@
 	  							<input type="hidden" id="dtp_input2" value="" />
 	  						</div>
 	  					</div>
+                        {% csrf_token %}
 	  				</form>
 	  			</div>
 	  		</header>
@@ -88,12 +89,12 @@
 	  		<div class="copright">copyright @ 2015 admin dashboard</div>
 	  	</footer>
 	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	  	<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-	  	<script src="js/bootstrap.min.js"></script>
-	  	<script src="js/myfunctions.js"></script> <!--bootstrap component functions--> 
-	  	<script src="js/dataload.js"></script>
+	  	<script type="text/javascript" src="../static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+	  	<script src="../static/js/bootstrap.min.js"></script>
+	  	<script src="../static/js/myfunctions.js"></script> <!--bootstrap component functions-->
+	  	<script src="../static/js/dataload.js"></script>
 
 	  	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug --> 
-	  	<script src="js/ie10-viewport-bug-workaround.js"></script>
+	  	<script src="../static/js/ie10-viewport-bug-workaround.js"></script>
 	  </body>
 	  </html>
