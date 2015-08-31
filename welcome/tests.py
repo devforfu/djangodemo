@@ -1,6 +1,7 @@
-from datetime import date, timedelta
 from unittest import skip
+from datetime import date, timedelta
 
+import pandas as pd
 from django.test import TestCase
 from django.test.client import Client
 
@@ -14,27 +15,19 @@ class TestAjaxRequests(TestCase):
     def setUp(self):
         self.client = Client()
 
+    @skip
     def test_ajax_requests(self):
         data = {'start_date': '05/01/2015', 'end_date': '08/07/2015'}
 
-        # self.client.post('/welcome/chart/open_tickets')
-        # self.client.post('/welcome/chart/avg_reply_time')
-        # self.client.post('/welcome/chart/avg_ticket_close_time')
+        self.client.post('/welcome/chart/open_tickets')
+        self.client.post('/welcome/chart/avg_reply_time')
+        self.client.post('/welcome/chart/avg_ticket_close_time')
 
         r = self.client.post('/welcome/chart/bar_chart', data=data)
-        # self.assertTrue(r.content.decode().startswith('bar chart'))
-
         r = self.client.post('/welcome/chart/users', data=data)
-        # self.assertTrue(r.content.decode().startswith('users'))
 
     @skip
-    def test_data_insights(self):
-        start_date = date(month=8, day=9, year=2015)
-        end_date = date(month=10, day=8, year=2015)
-        result = insights.open_tickets_chart(start_date, end_date)
-
-        result = insights.reply_moving_average(start_date, end_date)
-
+    def test_numeric_data_insights(self):
         count = insights.open_tickets_count()
         self.assertTrue(count > 0)
 
@@ -44,3 +37,11 @@ class TestAjaxRequests(TestCase):
 
         avg_close_time = insights.avg_ticket_close_time()
         self.assertTrue(avg_close_time > 0)
+
+    def test_filter_data_insights(self):
+        start_date = date(month=8, day=25, year=2015)
+        end_date = date(month=9, day=15, year=2015)
+
+        # insights.open_tickets_chart(start_date, end_date)
+
+        insights.reply_moving_average(start_date, end_date)

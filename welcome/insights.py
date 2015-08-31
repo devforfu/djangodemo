@@ -168,29 +168,25 @@ def reply_moving_average(start_date, end_date):
     reply_times = {'date': [], 'avg': []}
 
     for ts in pd.date_range(start_date, end_date, freq='D'):
-        current_date = df[df.updated_message <= ts.date()]
         reply_times['date'].append(ts.date())
 
-        if current_date.empty:
+        expert_answers = \
+            df[(df.updated_message <= ts.date()) & (df.type == 'expert')]
+
+        if expert_answers.empty:
             reply_times['avg'].append(None)
-            continue
 
-        waiting = []
+        else:
+            avgs = expert_answers.groupby('name').apply(
+                lambda g: (g.updated_message.min() - g.updated_ticket.iloc[0]))
+            avgs = [a.days for a in avgs]
+            reply_times['avg'].append(sum(avgs)/len(avgs))
 
-        for i, g in current_date.groupby('name'):
-            ticket_update = g.updated_ticket.iloc[0]
-            experts_only = g[g.type == 'expert']
 
-            if experts_only.empty:
-                continue
+    result = pd.DataFrame.from_dict(reply_times)
+    result = result.fillna(method='ffill')
+    result = result.dropna()
 
-            first_reply = experts_only.updated_message.min()
-            waiting.append((first_reply - ticket_update).days)
+    result.avg = rolling_mean(result.avg, 5)
 
-        reply_times['avg'].append(
-            None if not waiting else sum(waiting)/len(waiting))
-
-    reply_times = pd.DataFrame(reply_times).fillna(method='ffill')
-    reply_times.avg = rolling_mean(reply_times.avg, 5).fillna(method='ffill')
-
-    return reply_times.dropna()
+    return result.dropna()

@@ -55,7 +55,7 @@ var sDate = new Date(startingDate);
 startingDate.setDate(startingDate.getDate() + 99);
 
 var eDate = new Date(startingDate);
-//startingDate.setMonth(startingDate.getMonth() + 2);
+startingDate.setMonth(startingDate.getMonth() + 2);
 
 var endDate = new Date(startingDate);
 
@@ -74,7 +74,7 @@ $('#date1').datetimepicker({
 $('#date2').datetimepicker({
 	language:  'eng',
 	weekStart: 1,
-	startDate: sDate,
+	startDate: eDate,
 	endDate: endDate,
 	autoclose: 1,
 	startView: 2,
