@@ -35,19 +35,30 @@ var localData  = {};
 
 localData.dataForBarChart = [];
 
-var startingDate = new Date(2015, 4, 1);
+//var startingDate = new Date(2015, 4, 1);
+//var sDate = new Date(startingDate);
+//for(var i = 0; i<100; i++){
+//	var obj = {};
+//	obj.date = new Date(startingDate);
+//	obj.val = Math.round(Math.random() * 500);
+//	localData.dataForBarChart.push(obj);
+//	startingDate.setDate(startingDate.getDate()+1);
+//}
+//startingDate.setDate(startingDate.getDate()-1);
+//var eDate = new Date(startingDate);
+//// startingDate.setMonth(startingDate.getMonth()+2);
+//var endDate = new Date(startingDate);
+
+var startingDate = new Date(2015, 7, 1);
+
 var sDate = new Date(startingDate);
-for(var i = 0; i<100; i++){
-	var obj = {};
-	obj.date = new Date(startingDate);
-	obj.val = Math.round(Math.random() * 500);
-	localData.dataForBarChart.push(obj);
-	startingDate.setDate(startingDate.getDate()+1);
-}
-startingDate.setDate(startingDate.getDate()-1);
+startingDate.setDate(startingDate.getDate() + 99);
+
 var eDate = new Date(startingDate);
-// startingDate.setMonth(startingDate.getMonth()+2);
+//startingDate.setMonth(startingDate.getMonth() + 2);
+
 var endDate = new Date(startingDate);
+
 
 $('#date1').datetimepicker({
 	language:  'eng',
@@ -135,13 +146,13 @@ function convertDate(date) {
     var month = date.getMonth();
     var year = date.getFullYear();
 
-    return month + "/" + day + "/" + year;
+    return (month + 1) + "/" + day + "/" + year;
 }
 
 var loadData = function loadData(dataName, reference, callback) {
     var handlers = {
-        'dataForBarChart': "bar_chart",
-        'users': "users",
+        "dataForBarChart": "bar_chart",
+        "users": "users",
         "openTickets": "open_tickets",
         "avgReplyTime": "avg_reply_time",
         "avgTicketCloseTime": "avg_ticket_close_time"
@@ -159,7 +170,10 @@ var loadData = function loadData(dataName, reference, callback) {
         },
 
         success: function(data) {
-            var result = JSON.parse(date)['result'];
+            //alert(data);
+            //return;
+
+            var result = JSON.parse(data)['result'];
 
             if (Object.prototype.toString.call(result) === '[object Array]') {
                 var arr = [];
@@ -172,6 +186,7 @@ var loadData = function loadData(dataName, reference, callback) {
                 }
 
                 callback(reference, arr);
+
             } else {
                 callback(reference, result);
             }
@@ -182,7 +197,7 @@ var loadData = function loadData(dataName, reference, callback) {
         }
     });
 
-    event.preventDefault();
+    //event.preventDefault();
 };
 
 // It should work like this:

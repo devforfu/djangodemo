@@ -15,9 +15,13 @@ class TestAjaxRequests(TestCase):
         self.client = Client()
 
     def test_ajax_requests(self):
-        data = {'start_date': '8/4/2015', 'end_date': '10/20/2015'}
+        data = {'start_date': '05/01/2015', 'end_date': '08/07/2015'}
 
-        # r = self.client.post('/welcome/chart/bar_chart', data=data)
+        # self.client.post('/welcome/chart/open_tickets')
+        # self.client.post('/welcome/chart/avg_reply_time')
+        # self.client.post('/welcome/chart/avg_ticket_close_time')
+
+        r = self.client.post('/welcome/chart/bar_chart', data=data)
         # self.assertTrue(r.content.decode().startswith('bar chart'))
 
         r = self.client.post('/welcome/chart/users', data=data)

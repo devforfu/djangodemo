@@ -1,5 +1,6 @@
-from collections import defaultdict
+from operator import itemgetter
 from datetime import timedelta
+from collections import defaultdict
 
 import pandas as pd
 from pandas.stats.moments import rolling_mean
@@ -68,7 +69,7 @@ def avg_reply_time():
     if not days_for_waiting:
         return None
 
-    avg = sum(days_for_waiting) / len(days_for_waiting)
+    avg = sum(days_for_waiting)/len(days_for_waiting)
 
     return avg
 
@@ -95,7 +96,7 @@ def avg_ticket_close_time():
     if not days_until_closed:
         return None
 
-    avg = sum(days_until_closed) / len(days_until_closed)
+    avg = sum(days_until_closed)/len(days_until_closed)
 
     return avg
 
@@ -128,6 +129,7 @@ def open_tickets_chart(start_date, end_date):
         new_messages = df[df.updated == ts.date()]
 
         if new_messages.empty:
+            result[ts.date()] = None
             continue
 
         new_messages = new_messages.sort('updated')
@@ -140,6 +142,15 @@ def open_tickets_chart(start_date, end_date):
             sum(int(v) for v in ticket_is_opened.values())
 
         result[ts.date()] = opened_tickets_on_current_date
+
+    # convert to dataframe to fill NaN values
+    items = sorted(result.items(), key=itemgetter(0))
+    result = pd.DataFrame({
+        'date': [d for d, _ in items],
+        'count': [c for _, c in items]
+    })
+
+    result = result.fillna(method='ffill').dropna().to_dict(orient='list')
 
     return result
 
@@ -160,6 +171,10 @@ def reply_moving_average(start_date, end_date):
         current_date = df[df.updated_message <= ts.date()]
         reply_times['date'].append(ts.date())
 
+        if current_date.empty:
+            reply_times['avg'].append(None)
+            continue
+
         waiting = []
 
         for i, g in current_date.groupby('name'):
@@ -176,6 +191,6 @@ def reply_moving_average(start_date, end_date):
             None if not waiting else sum(waiting)/len(waiting))
 
     reply_times = pd.DataFrame(reply_times).fillna(method='ffill')
-    reply_times.avg = rolling_mean(reply_times.avg, 5).fillna(method='bfill')
+    reply_times.avg = rolling_mean(reply_times.avg, 5).fillna(method='ffill')
 
-    return reply_times
+    return reply_times.dropna()

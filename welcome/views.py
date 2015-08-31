@@ -5,16 +5,14 @@ from operator import itemgetter
 from django.shortcuts import render
 from django.http import HttpResponse
 
+import welcome.insights as insights
 from welcome.utils import dates_filter, post_request
 from welcome.insights import open_tickets_count
-from welcome.insights import avg_reply_time, avg_ticket_close_time
 from welcome.insights import open_tickets_chart, reply_moving_average
 
 
-def home_page(request):
-    if request.is_ajax() or request.method == 'POST':
-        return HttpResponse("AJAX request handled")
 
+def home_page(request):
     return render(request, 'index.html')
 
 
@@ -26,8 +24,8 @@ def bar_chart(start_date, end_date):
     if not chart:
         return HttpResponse('{"result": []}')
 
-    pairs = sorted(chart.items(), key=itemgetter(0))
-    result = {'result': [{'date': k.strftime("%m/%d/%Y"), 'val': v}
+    pairs = zip(chart['date'], chart['count'])
+    result = {'result': [{"date": k.strftime("%m/%d/%Y"), "val": v}
                          for k, v in pairs]}
 
     json_response = json.dumps(result)
@@ -43,7 +41,7 @@ def users(start_date, end_date):
     if not chart:
         return HttpResponse('{"result": []}')
 
-    pairs = zip(sorted(chart['date']), chart['avg'])
+    pairs = zip(chart['date'], chart['avg'])
     result = {"result": [{"date": k.strftime("%m/%d/%Y"), "DAU": v}
                          for k, v in pairs]}
 
@@ -54,20 +52,21 @@ def users(start_date, end_date):
 
 @post_request
 def open_tickets(request):
-    count = open_tickets_count()
-    json.dumps({"result": })
-    return HttpResponse("{} days".format(count))
+    result = json.dumps({"result": str(open_tickets_count())})
+    return HttpResponse(result)
 
 
 @post_request
 def avg_reply_time(request):
-    avg = avg_reply_time()
-    response = "Not available" if not avg else str(avg) + " days"
-    return HttpResponse(response)
+    avg = insights.avg_reply_time()
+    response = "0" if not avg else "{0:.2f}".format(avg*24)
+    result = json.dumps({"result": response + " "})
+    return HttpResponse(result)
 
 
 @post_request
 def avg_ticket_close_time(request):
-    avg = avg_ticket_close_time()
-    response = "Not available" if not avg else str(avg) + " days"
-    return HttpResponse(response)
+    avg = insights.avg_ticket_close_time()
+    response = "0" if not avg else "{0:.2f}".format(avg*24)
+    result = json.dumps({"result": response + " "})
+    return HttpResponse(result)
