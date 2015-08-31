@@ -130,18 +130,53 @@ localData.avgTicketCloseTime = (Math.random() * 20).toFixed(2);;
 //	callback(reference, localData[dataName]);
 //}
 
+function convertDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth();
+    var year = date.getFullYear();
+
+    return month + "/" + day + "/" + year;
+}
+
 var loadData = function loadData(dataName, reference, callback) {
+    var handlers = {
+        'dataForBarChart': "bar_chart",
+        'users': "users",
+        "openTickets": "open_tickets",
+        "avgReplyTime": "avg_reply_time",
+        "avgTicketCloseTime": "avg_ticket_close_time"
+    };
+
+    if (handlers[dataName] == undefined)
+        return;
+
     $.ajax({
-        url: "/welcome/chart",
+        url: "/welcome/chart/" + handlers[dataName],
         type: "post",
         data: {
-            'start_date': sDate,
-            'end_date': endDate
+            'start_date': convertDate(sDate),
+            'end_date': convertDate(endDate)
         },
+
         success: function(data) {
-            // callback(reference, data);
-            alert('Response: ' + data);
+            var result = JSON.parse(date)['result'];
+
+            if (Object.prototype.toString.call(result) === '[object Array]') {
+                var arr = [];
+
+                for (var i = 0; i < result.length; ++i) {
+                    var entry = result[i];
+
+                    entry.date = new Date(entry.date);
+                    arr.push(entry);
+                }
+
+                callback(reference, arr);
+            } else {
+                callback(reference, result);
+            }
         },
+
         error: function() {
             alert('Error occurred!');
         }
